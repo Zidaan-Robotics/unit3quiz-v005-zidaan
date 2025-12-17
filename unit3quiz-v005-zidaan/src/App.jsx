@@ -191,8 +191,8 @@ function App() {
               onClick={() => setShowVotingModal(false)}
               style={{
                 position: 'absolute',
-                bottom: '-50px',
-                right: '0',
+                top: '40px',
+                right: '10px',
                 background: 'white',
                 border: 'none',
                 borderRadius: '50%',

@@ -33,7 +33,7 @@ function Voting({ user }) {
     } catch (error) {
       console.error('Error checking vote:', error);
       // On error, still set checking to false but show error
-      setError('Error checking vote status. Please refresh and try again.');
+      setError('please vote');
       setCheckingVote(false);
     }
   };
@@ -44,32 +44,35 @@ function Voting({ user }) {
     setSubmitting(true);
     setError('');
 
-    // Optimistic UI update - show success immediately
-    setHasVoted(true);
-    setUserVote(candidate);
-
     try {
-      // Write the vote directly (we already checked at the start)
+      // Save vote to Firestore database
       const voteRef = doc(db, 'votes', user.uid);
       await setDoc(voteRef, {
         candidate: candidate,
         userId: user.uid,
         userEmail: user.email,
         timestamp: new Date()
-      });
+      }, { merge: false }); // Use merge: false to ensure we don't overwrite existing votes
+      
+      // Verify the vote was saved by reading it back
+      const savedVote = await getDoc(voteRef);
+      if (savedVote.exists()) {
+        // Vote successfully saved to database
+        setHasVoted(true);
+        setUserVote(candidate);
+        console.log('Vote successfully saved to Firestore:', savedVote.data());
+      } else {
+        throw new Error('Vote was not saved to database');
+      }
       
       setSubmitting(false);
     } catch (error) {
-      console.error('Error submitting vote:', error);
+      console.error('Error submitting vote to database:', error);
       console.error('Error code:', error.code);
       console.error('Error message:', error.message);
       
-      // Revert optimistic update on error
-      setHasVoted(false);
-      setUserVote(null);
-      
       // Show more detailed error message
-      let errorMessage = 'Error submitting vote. ';
+      let errorMessage = 'Error saving vote to database. ';
       if (error.code === 'permission-denied') {
         errorMessage += 'Permission denied. Please check Firestore security rules.';
       } else if (error.code === 'unavailable') {
@@ -96,6 +99,14 @@ function Voting({ user }) {
             fontSize: '14px'
           }}>
             Checking vote status...
+            <div style={{ 
+              marginTop: '10px',
+              fontSize: '12px',
+              color: '#999',
+              fontStyle: 'italic'
+            }}>
+              This may take up to 30 seconds
+            </div>
           </div>
         )}
         
