@@ -1,0 +1,97 @@
+.sales-graph-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.graph-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.graph-header h2 {
+  margin: 0 0 15px 0;
+  font-size: 2em;
+}
+
+.subtitle {
+  margin: 10px 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1em;
+}
+
+.controls {
+  margin: 15px 0;
+}
+
+.controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1em;
+}
+
+.count-select {
+  padding: 8px 12px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.count-select:hover {
+  border-color: #646cff;
+}
+
+.count-select:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
+
+.chart-wrapper {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.loading-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+@media (prefers-color-scheme: light) {
+  .sales-graph-container {
+    background-color: #ffffff;
+    color: #213547;
+  }
+
+  .subtitle {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .count-select {
+    background-color: #f9f9f9;
+    color: #213547;
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .loading-container {
+    background-color: #ffffff;
+    color: #213547;
+  }
+}
+
