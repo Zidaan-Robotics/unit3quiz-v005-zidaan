@@ -60,6 +60,14 @@ function SalesGraph() {
   const displayedData = allData.slice(0, displayCount);
   const maxItems = allData.length;
 
+  // Calculate chart width: use fixed width when many items to enable scrolling
+  // Minimum 60px per bar for readability
+  const minWidthPerBar = 60;
+  const calculatedWidth = displayedData.length * minWidthPerBar + 100; // +100 for margins
+  const shouldScroll = displayedData.length > 50;
+  const chartWidth = shouldScroll ? Math.max(calculatedWidth, typeof window !== 'undefined' ? window.innerWidth : 1200) : '100%';
+  const chartHeight = typeof window !== 'undefined' ? window.innerHeight - 200 : 600;
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -90,26 +98,29 @@ function SalesGraph() {
           </label>
         </div>
         <p className="subtitle">Sorted by Warehouse Sales (Descending)</p>
+        {shouldScroll && <p className="scroll-hint">Scroll horizontally to view all suppliers</p>}
       </div>
-      <div className="chart-wrapper">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className={`chart-wrapper ${shouldScroll ? 'scrollable' : ''}`}>
+        {shouldScroll ? (
           <BarChart
+            width={chartWidth}
+            height={chartHeight}
             data={displayedData}
             margin={{
               top: 20,
               right: 30,
               left: 20,
-              bottom: displayedData.length > 30 ? 150 : 100,
+              bottom: 200,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis 
               dataKey="supplier" 
-              angle={displayedData.length > 30 ? -45 : -45}
+              angle={-45}
               textAnchor="end"
-              height={displayedData.length > 30 ? 180 : 150}
+              height={200}
               interval={0}
-              style={{ fontSize: displayedData.length > 50 ? '8px' : '10px' }}
+              style={{ fontSize: '9px' }}
             />
             <YAxis />
             <Tooltip />
@@ -117,7 +128,34 @@ function SalesGraph() {
             <Bar dataKey="warehouseSales" fill="#8884d8" name="Warehouse Sales" />
             <Bar dataKey="retailSales" fill="#82ca9d" name="Retail Sales" />
           </BarChart>
-        </ResponsiveContainer>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={displayedData}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: displayedData.length > 30 ? 150 : 100,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="supplier" 
+                angle={-45}
+                textAnchor="end"
+                height={displayedData.length > 30 ? 180 : 150}
+                interval={0}
+                style={{ fontSize: displayedData.length > 50 ? '8px' : '10px' }}
+              />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="warehouseSales" fill="#8884d8" name="Warehouse Sales" />
+              <Bar dataKey="retailSales" fill="#82ca9d" name="Retail Sales" />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );

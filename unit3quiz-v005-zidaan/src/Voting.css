@@ -1,0 +1,131 @@
+.voting-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.voting-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.voting-card h2 {
+  margin: 0 0 30px 0;
+  color: #333;
+  font-size: 28px;
+}
+
+.vote-instruction {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.vote-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.vote-button {
+  padding: 20px 30px;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+  position: relative;
+}
+
+.vote-button.harris {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+}
+
+.vote-button.trump {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.vote-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.vote-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.candidate-name {
+  display: block;
+}
+
+.loading-text {
+  display: block;
+  font-size: 14px;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+.vote-confirmed {
+  padding: 20px 0;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 48px;
+  color: white;
+  font-weight: bold;
+}
+
+.vote-confirmed h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.vote-result {
+  font-size: 18px;
+  color: #555;
+  margin: 15px 0;
+}
+
+.vote-result strong {
+  color: #667eea;
+  font-size: 20px;
+}
+
+.vote-note {
+  font-size: 14px;
+  color: #888;
+  margin-top: 20px;
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid #fcc;
+}
+

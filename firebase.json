@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "unit3quiz-v005-zidaan/dist",
     "ignore": [
       "firebase.json",
       "**/.*",

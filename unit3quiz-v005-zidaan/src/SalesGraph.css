@@ -60,6 +60,19 @@
   flex: 1;
   min-height: 0;
   width: 100%;
+  overflow: hidden;
+}
+
+.chart-wrapper.scrollable {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.scroll-hint {
+  margin: 10px 0 0 0;
+  color: rgba(100, 108, 255, 0.8);
+  font-size: 0.9em;
+  font-style: italic;
 }
 
 .loading-container {
